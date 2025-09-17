@@ -95,26 +95,58 @@ const HomeTab = ({ mapLocations }: { mapLocations: any[] }) => {
 
       {/* Map */}
       <View style={styles.mapContainer}>
-        <MapView
-          provider={PROVIDER_DEFAULT}
+        <WebView
           style={styles.map}
-          initialRegion={initialRegion}
-          showsUserLocation={true}
-          showsMyLocationButton={true}
-        >
-          {mapLocations.map((loc, index) => (
-            <Marker
-              key={index}
-              coordinate={{
-                latitude: loc.latitude,
-                longitude: loc.longitude,
-              }}
-              title={loc.title}
-              description={loc.description}
-              pinColor={getMarkerColor(loc.status)}
-            />
-          ))}
-        </MapView>
+          source={{
+            html: `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+                <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+                <style>
+                    body { margin: 0; padding: 0; }
+                    #map { height: 100vh; width: 100vw; }
+                </style>
+            </head>
+            <body>
+                <div id="map"></div>
+                <script>
+                    const map = L.map('map').setView([${location?.coords.latitude || 25.4670}, ${location?.coords.longitude || 91.3662}], 10);
+                    
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap contributors'
+                    }).addTo(map);
+                    
+                    // Add sample markers for North East India water monitoring
+                    const locations = [
+                        {lat: 25.4670, lng: 91.3662, title: "Mawsynram", status: "processed"},
+                        {lat: 25.5788, lng: 91.8933, title: "Mawjymbuin Caves", status: "under_review"},
+                        {lat: 25.4500, lng: 91.4000, title: "Hardware House", status: "submitted"},
+                        {lat: 25.5000, lng: 91.5000, title: "Emily And Sankrita Homes", status: "high_priority"},
+                        {lat: 25.3500, lng: 91.6000, title: "Nan Bah Meston", status: "processed"}
+                    ];
+                    
+                    locations.forEach(loc => {
+                        const color = loc.status === 'high_priority' ? 'red' : 
+                                    loc.status === 'under_review' ? 'orange' : 
+                                    loc.status === 'processed' ? 'green' : 'blue';
+                        
+                        L.circleMarker([loc.lat, loc.lng], {
+                            color: color,
+                            fillColor: color,
+                            fillOpacity: 0.7,
+                            radius: 8
+                        }).addTo(map)
+                        .bindPopup(\`<b>\${loc.title}</b><br>Status: \${loc.status}\`);
+                    });
+                </script>
+            </body>
+            </html>
+            `
+          }}
+        />
         
         {/* Location Info Card */}
         <View style={styles.locationCard}>
