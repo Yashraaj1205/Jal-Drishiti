@@ -39,20 +39,12 @@ const HomeTab = ({ mapLocations }: { mapLocations: any[] }) => {
     })();
   }, []);
 
-  // Default to Meghalaya center if no location
-  const initialRegion = {
-    latitude: location?.coords.latitude || 25.4670,
-    longitude: location?.coords.longitude || 91.3662,
-    latitudeDelta: 2.0,
-    longitudeDelta: 2.0,
-  };
-
   const getMarkerColor = (status: string) => {
     switch (status) {
-      case 'high_priority': return '#FF0000';
-      case 'under_review': return '#FFA500';
-      case 'processed': return '#00FF00';
-      default: return '#0000FF';
+      case 'high_priority': return 'red';
+      case 'under_review': return 'orange';
+      case 'processed': return 'green';
+      default: return 'blue';
     }
   };
 
