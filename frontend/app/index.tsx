@@ -52,13 +52,13 @@ const HomeTab = ({ mapLocations }: { mapLocations: any[] }) => {
           <Text style={styles.appSubtitle}>Volunteer App</Text>
         </View>
         <View style={styles.headerIcons}>
-          <TouchableOpacity style={styles.headerIcon}>
+          <TouchableOpacity style={styles.headerIcon} onPress={() => Alert.alert('Notifications', 'No new notifications')}>
             <Ionicons name="notifications-outline" size={24} color="#333" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.headerIcon}>
+          <TouchableOpacity style={styles.headerIcon} onPress={() => Alert.alert('Emergency Contact', 'Call: 1077 (Water Emergency Helpline)')}>
             <Ionicons name="call-outline" size={24} color="#333" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.headerIcon}>
+          <TouchableOpacity style={styles.headerIcon} onPress={() => Alert.alert('Profile', 'User: Water Quality Volunteer\nLocation: Meghalaya\nReports Submitted: 12')}>
             <Ionicons name="person-outline" size={24} color="#333" />
           </TouchableOpacity>
         </View>
