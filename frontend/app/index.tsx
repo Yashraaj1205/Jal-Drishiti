@@ -171,7 +171,7 @@ const ReportsTab = ({ reportStats, recentActivity }: { reportStats: any, recentA
       {/* Quick Actions */}
       <View style={styles.quickActions}>
         <Text style={styles.sectionTitle}>Quick Actions</Text>
-        <TouchableOpacity style={styles.submitButton}>
+        <TouchableOpacity style={styles.submitButton} onPress={() => router.push('/water-report')}>
           <View style={styles.submitButtonContent}>
             <View style={styles.submitButtonIcon}>
               <Ionicons name="add" size={24} color="white" />
