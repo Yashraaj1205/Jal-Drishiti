@@ -39,12 +39,21 @@ const HomeTab = ({ mapLocations }: { mapLocations: any[] }) => {
     })();
   }, []);
 
+  const getMarkerColor = (status: string) => {
+    switch (status) {
+      case 'high_priority': return 'red';
+      case 'under_review': return 'orange';
+      case 'processed': return 'green';
+      default: return 'blue';
+    }
+  };
+
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         <Image 
-          source={{ uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAANCSURBVGiB7ZpNaBNBFMd/s7vZJE2TNrGJH1hbW6utYhsQFQ9ePHjw4MWbJ0/ePHny5M2bFw9ePHjx4sGbFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWL' }}
+          source={{ uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAANCSURBVGiB7ZpNaBNBFMd/s7vZJE2TNrGJH1hbW6utYhsQFQ9ePHjw4MWbJ0/ePHny5M2bFw9ePHjx4sGbFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWLFy9evHjx4sWL' }}
           style={styles.governmentLogo}
         />
         <View style={styles.headerText}>
@@ -213,7 +222,7 @@ const ReportsTab = ({ reportStats, recentActivity }: { reportStats: any, recentA
             </View>
             <View style={styles.activityContent}>
               <Text style={styles.activityTitle}>{activity.title}</Text>
-              <Text style={styles.activityLocation}>{activity.location} - 2 hours ago</Text>
+              <Text style={styles.activityLocation}>{activity.location}</Text>
             </View>
           </View>
         ))}
